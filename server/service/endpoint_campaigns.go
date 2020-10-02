@@ -78,6 +78,30 @@ func makeStreamDistributedQueryCampaignResultsHandler(svc kolide.Service, jwtKey
 	opt := sockjs.DefaultOptions
 	opt.Websocket = true
 	opt.RawWebsocket = true
+	opt.JSessionID = func(rw http.ResponseWriter, req *http.Request) {
+		// Set the JSESSIONID cookie that will help some load balancers to
+		// maintain sticky sessions (needed for SockJS in XHR mode)
+		cookie, err := req.Cookie("JSESSIONID")
+		if err == http.ErrNoCookie {
+			id, err := kolide.RandomText(8)
+			if err != nil {
+				logger.Log("err", err, "msg", "generate JSESSIONID")
+				id = ""
+			}
+			cookie = &http.Cookie{
+				Name:  "JSESSIONID",
+				Value: id,
+			}
+		}
+		cookie.Path = "/"
+		// Setting a 30 second Max-Age means that the session will be sticky as
+		// long as the query keeps running (because this cookie will be
+		// refreshed on each request), but will allow a new session to be
+		// created after some time passes between requests.
+		cookie.MaxAge = 30
+		header := rw.Header()
+		header.Add("Set-Cookie", cookie.String())
+	}
 	return sockjs.NewHandler("/api/v1/kolide/results", opt, func(session sockjs.Session) {
 		defer session.Close(0, "none")
 
