@@ -1,13 +1,29 @@
 # Go engineers are automatically added as reviewers when changes are made to go
 files or related backend files.
 *.go @fleetdm/go
-go.sum @fleetdm/go
-go.mod @fleetdm/go
+go.* @fleetdm/go
 /server/ @fleetdm/go
 /cmd/ @fleetdm/go
+/pkg/ @fleetdm/go
+/orbit/ @fleetdm/go
 
 # Infra/terraform
-*.tf @edwardsb
+*.tf @fleetdm/infra
+/charts/ @fleetdm/infra
+
+# Frontend (core)
+/frontend/ @fleetdm/frontend
+/cypress/ @fleetdm/frontend
+/.storybook/ @fleetdm/frontend
+/assets/ @fleetdm/frontend
+*.config.js @fleetdm/frontend
+.eslintrc.js @fleetdm/frontend
+.npmignore @fleetdm/frontend
+.prettierignore @fleetdm/frontend
+.prettierrc.json @fleetdm/frontend
+package.json @fleetdm/frontend
+yarn.lock @fleetdm/frontend
+tsconfig.json @fleetdm/frontend
 
 # GitHub settings + actions
 /.github/ @zwass
