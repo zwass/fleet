@@ -13,8 +13,9 @@ import (
 	"os"
 	"time"
 
+	"fyne.io/fyne/v2"
+	"fyne.io/systray"
 	"github.com/fleetdm/fleet/v4/pkg/open"
-	"github.com/getlantern/systray"
 )
 
 func main() {
@@ -74,7 +75,7 @@ func main() {
 				} else {
 					resp.Body.Close()
 					if resp.StatusCode == http.StatusOK {
-						myDeviceItem.SetTitle("My device")
+						myDeviceItem.SetTitle("My device (test)")
 						myDeviceItem.Enable()
 						myDeviceItem.SetTooltip("")
 						return
@@ -92,9 +93,8 @@ func main() {
 						log.Printf("open browser my device: %s", err)
 					}
 				case <-transparencyItem.ClickedCh:
-					if err := open.Browser("https://fleetdm.com/transparency"); err != nil {
-						log.Printf("open browser transparency: %s", err)
-					}
+					notification := fyne.NewNotification("hello", "content")
+					SendNotification(notification)
 				}
 			}
 		}()
