@@ -26,7 +26,7 @@ require (
 	github.com/elazarl/go-bindata-assetfs v1.0.0
 	github.com/facebookincubator/flog v0.0.0-20190930132826-d2511d0ce33c // indirect
 	github.com/facebookincubator/nvdtools v0.1.4
-	github.com/fatih/color v1.12.0
+	github.com/fatih/color v1.13.0
 	github.com/fleetdm/goose v0.0.0-20220214194029-91b5e5eb8e77
 	github.com/getlantern/golog v0.0.0-20211223150227-d4d95a44d873 // indirect
 	github.com/getlantern/hidden v0.0.0-20220104173330-f221c5a24770 // indirect
@@ -77,11 +77,12 @@ require (
 	github.com/rs/zerolog v1.20.0
 	github.com/russellhaering/goxmldsig v1.1.0
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
+	github.com/sassoftware/relic/v7 v7.4.1
 	github.com/shirou/gopsutil/v3 v3.22.2
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
-	github.com/spf13/cast v1.3.1
+	github.com/spf13/cast v1.4.1
 	github.com/spf13/cobra v1.4.0
-	github.com/spf13/viper v1.8.1
+	github.com/spf13/viper v1.10.0
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/stretchr/testify v1.7.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
@@ -101,7 +102,6 @@ require (
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.21.0 // indirect
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad
 	google.golang.org/grpc v1.46.0
 	gopkg.in/guregu/null.v3 v3.4.0

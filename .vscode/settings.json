@@ -4,7 +4,7 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "diffEditor.codeLens": true,
-    "rewrap.autoWrap.enabled": true,
+    "rewrap.autoWrap.enabled": false,
     "rewrap.wrappingColumn": 100,
     "go.formatTool": "gofumports",
     "go.lintTool": "golangci-lint",

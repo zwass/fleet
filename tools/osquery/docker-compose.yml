@@ -18,7 +18,7 @@ x-default-settings:
 
 services:
   ubuntu20-osquery:
-    image: "osquery/osquery:4.9.0-ubuntu20.04"
+    image: "osquery/osquery:5.2.3-ubuntu20.04"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -27,7 +27,7 @@ services:
     extra_hosts: *extra-hosts
 
   ubuntu18-osquery:
-    image: "osquery/osquery:4.9.0-ubuntu18.04"
+    image: "osquery/osquery:5.2.3-ubuntu18.04"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -36,7 +36,7 @@ services:
     extra_hosts: *extra-hosts
 
   ubuntu16-osquery:
-    image: "osquery/osquery:4.9.0-ubuntu16.04"
+    image: "osquery/osquery:5.2.3-ubuntu16.04"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -45,7 +45,7 @@ services:
     extra_hosts: *extra-hosts
 
   centos8-osquery:
-    image: "osquery/osquery:4.9.0-centos8"
+    image: "osquery/osquery:5.2.3-centos8"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -54,7 +54,7 @@ services:
     extra_hosts: *extra-hosts
 
   centos7-osquery:
-    image: "osquery/osquery:4.9.0-centos7"
+    image: "osquery/osquery:5.2.3-centos7"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -63,7 +63,7 @@ services:
     extra_hosts: *extra-hosts
 
   centos6-osquery:
-    image: "osquery/osquery:4.9.0-centos6"
+    image: "osquery/osquery:5.2.3-centos6"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -72,7 +72,7 @@ services:
     extra_hosts: *extra-hosts
 
   debian10-osquery:
-    image: "osquery/osquery:4.9.0-debian10"
+    image: "osquery/osquery:5.2.3-debian10"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment
@@ -81,7 +81,7 @@ services:
     extra_hosts: *extra-hosts
 
   debian9-osquery:
-    image: "osquery/osquery:4.9.0-debian9"
+    image: "osquery/osquery:5.2.3-debian9"
     platform: *default-platform
     volumes: *default-volumes
     environment: *default-environment

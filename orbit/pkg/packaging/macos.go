@@ -2,6 +2,8 @@ package packaging
 
 import (
 	"bytes"
+	"context"
+	"crypto"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -15,6 +17,8 @@ import (
 	"github.com/fleetdm/fleet/v4/pkg/file"
 	"github.com/fleetdm/fleet/v4/pkg/secure"
 	"github.com/rs/zerolog/log"
+	"github.com/sassoftware/relic/v7/lib/certloader"
+	"github.com/sassoftware/relic/v7/lib/fruit/xar"
 )
 
 // See helful docs in http://bomutils.dyndns.org/tutorial.html
@@ -361,23 +365,67 @@ func cpio(srcPath, dstPath string) error {
 }
 
 func signPkg(pkgPath, identity string) error {
-	var outBuf bytes.Buffer
-	cmdProductsign := exec.Command(
-		"productsign",
-		"--sign", identity,
-		pkgPath,
-		pkgPath+".signed",
-	)
-	cmdProductsign.Stdout = &outBuf
-	cmdProductsign.Stderr = &outBuf
-	if err := cmdProductsign.Run(); err != nil {
-		fmt.Println(outBuf.String())
-		return fmt.Errorf("productsign: %w", err)
+	/*
+		var outBuf bytes.Buffer
+		cmdProductsign := exec.Command(
+			"productsign",
+			"--sign", identity,
+			pkgPath,
+			pkgPath+".signed",
+		)
+		cmdProductsign.Stdout = &outBuf
+		cmdProductsign.Stderr = &outBuf
+		if err := cmdProductsign.Run(); err != nil {
+			fmt.Println(outBuf.String())
+			return fmt.Errorf("productsign: %w", err)
+		}
+
+		if err := os.Rename(pkgPath+".signed", pkgPath); err != nil {
+			return fmt.Errorf("rename signed: %w", err)
+		}
+
+		return nil
+	*/
+	cert, err := loadPKCS12("/Users/zwass/Desktop/test.p12")
+	if err != nil {
+		return err
 	}
 
-	if err := os.Rename(pkgPath+".signed", pkgPath); err != nil {
-		return fmt.Errorf("rename signed: %w", err)
+	f, err := os.Open(pkgPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	patch, sig, err := xar.Sign(context.Background(), f, cert, crypto.SHA256)
+	if err != nil {
+		return err
+	}
+	_ = sig
+
+	err = patch.Apply(f, pkgPath)
+	if err != nil {
+		return err
 	}
 
 	return nil
+}
+
+type pass struct{}
+
+func (p pass) GetPasswd(prompt string) (string, error) {
+	return "test", nil
+}
+
+func loadPKCS12(path string) (*certloader.Certificate, error) {
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	cert, err := certloader.ParsePKCS12(b, pass{})
+	if err != nil {
+		return nil, err
+	}
+	return cert, nil
 }
